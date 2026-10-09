@@ -1,0 +1,36 @@
+/* ===== CAK PRI v3 · PI Group ===== */
+:root{--acc:#009D3C}
+body[data-ent="PKG"] .ent-gen,body[data-ent="PKG"] .genonly{display:none!important}
+body:not([data-ent="PKG"]) .ent-pkg,body:not([data-ent="PKG"]) .pkgonly{display:none!important}
+body:not([data-ent="PKG"]) header{box-shadow:inset 0 3px 0 var(--acc)}
+.logoph{display:inline-flex;align-items:center;justify-content:center;height:46px;min-width:70px;padding:0 12px;
+  border:2px dashed var(--a,var(--acc));border-radius:6px;font-family:var(--disp);font-weight:700;font-size:20px;
+  letter-spacing:.04em;color:var(--a,var(--acc));flex:none}
+/* pemilih entitas */
+.entbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:16px}
+.entlab{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.entbtns{display:flex;flex-wrap:wrap;gap:6px}
+.entbtns button{font-family:var(--mono);font-size:12px;letter-spacing:.04em;padding:7px 11px;border:1px solid var(--line2);
+  border-radius:7px;background:var(--panel);color:var(--ink2);cursor:pointer;display:inline-flex;align-items:center;gap:7px;line-height:1}
+.entbtns button:hover{background:var(--panel2);color:var(--ink)}
+.entbtns button i{width:9px;height:9px;border-radius:2px;background:var(--a);flex:none}
+.entbtns button[aria-pressed="true"]{border-color:var(--a);color:var(--ink);font-weight:600;box-shadow:inset 0 -3px 0 var(--a)}
+.entbtns button:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+.entbtns .sub2{font-size:9.5px;color:var(--ink3);letter-spacing:.06em;font-weight:400}
+.entbtns .dmy{font-size:8.5px;padding:2px 4px;border-radius:2px;background:#B3261E;color:#fff;letter-spacing:.1em;font-weight:600}
+.entstat{display:flex;flex-wrap:wrap;gap:6px 14px;width:100%;font-size:11.5px;color:var(--ink2)}
+.entpos b{color:var(--ink);font-weight:600}
+.entpos.tua{color:var(--amber)}
+/* pita data dummy */
+.dummyribbon{margin-top:14px;background:#B3261E;color:#fff;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;
+  padding:9px 14px;border-radius:4px;display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline}
+.dummyribbon b{letter-spacing:.12em}
+.dummyribbon .rb2{opacity:.9;font-size:10.5px}
+.dummyribbon[hidden]{display:none}
+/* peringatan modul & kerangka */
+.cakwarn{margin:0 0 16px;border-left:3px solid var(--amber);background:linear-gradient(90deg,color-mix(in srgb,var(--amber) 14%,transparent),transparent 75%);
+  padding:11px 14px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+.cakwarn b{display:block;color:var(--ink);margin-bottom:2px}
+.cakkosong{color:var(--ink2);font-size:13px;line-height:1.6}
+.cakkosong b{color:var(--ink)}
+@media(max-width:760px){.entbtns button{padding:7px 9px;font-size:11.5px}.entstat{font-size:11px}}
