@@ -339,9 +339,30 @@ function isiKerangka(tab){
 function paintModul(tab){
   if(ENT==='PKG') return;
   const el=$('gen-'+tab); if(!el) return;
+  const p=P(ENT);
+  if(p.engine==='gas' && STORE[ENT] && typeof GUI2!=='undefined' && GUI2.render(ENT, tab, el)) return;
   el.innerHTML = isiKerangka(tab);
 }
-function paintSemuaGen(){ Object.keys(MODUL).forEach(paintModul); }
+/* hanya modul yang sedang terbuka yang digambar; modul lain digambar saat dibuka */
+function paintSemuaGen(){ paintModul(tabAktif); paintPeringatanGen(); paintFootGen(); }
+function paintPeringatanGen(){
+  const el=$('galert'); if(!el) return;
+  let p=null;
+  if(ENT!=='PKG' && ENT!=='PIG' && P(ENT).engine==='gas' && STORE[ENT] && typeof GUI!=='undefined'){ try{ p=GUI.peringatan(GASM.bangun(ENT)); }catch(e){ console.error(e); } }
+  if(!p){ el.style.display='none'; el.innerHTML=''; return; }
+  el.style.display='flex';
+  el.innerHTML=`<span class="ico" style="background:${p.tone}"></span><span class="tx"><b>${esc(p.judul)}</b>${esc(p.isi||'')}</span>
+    <button class="tglbtn" type="button" data-ke="${p.ke}">${esc(p.label)}</button>`;
+  el.querySelector('button').addEventListener('click',()=>setTab(p.ke));
+}
+function paintFootGen(){
+  const el=$('gfoot'); if(!el) return;
+  if(ENT==='PKG'){ el.innerHTML=''; return; }
+  const dm=pakaiDummy(ENT);
+  el.innerHTML = (dm.length?`<b class="dmytx">DATA DUMMY</b> — angka ${ENT==='PIG'?'entitas '+dm.join(', ')+' ':''}fiktif untuk pengembangan, bukan untuk pelaporan. `:'')
+    + `Safety stock dan deadstock dari Kesepakatan Safety Stock Bahan Baku PI Group (profil entitas). Status bahan baku mengikuti KRI Pemenuhan Safety Stock Bahan Baku Non-Gas; KRI pasokan gas, produksi, dan ambang siaga masih usulan. `
+    + `Hasil simulator dan stress test indikatif untuk penyaringan awal, bukan pengganti balans resmi.`;
+}
 
 /* ---------- pindah entitas ---------- */
 function terapkanTampilan(){
@@ -364,6 +385,7 @@ function setEntitas(k, opsi){
 }
 function hook(jenis, arg){
   if(jenis==='tab'){ paintModul(arg); }
+  if(jenis==='tema' && ENT!=='PKG'){ paintSemuaGen(); }
   if(jenis==='paintAll' && ENT!=='PKG'){ paintKepala(); paintSemuaGen(); }
 }
 function init(){
@@ -371,6 +393,7 @@ function init(){
   const bar=$('entbtns');
   if(bar) bar.addEventListener('click',e=>{ const b=e.target.closest('button[data-ent]'); if(b) setEntitas(b.dataset.ent); });
   pasangPemuat();
+  window.addEventListener('hashchange',()=>{ const m=/ent=([A-Z]{3})/.exec(location.hash||''); if(m&&ENTITY_PROFILES[m[1]]&&m[1]!==ENT) setEntitas(m[1],{tanpaHash:true}); });
   let awal=null;
   const m=/ent=([A-Z]{3})/.exec(location.hash||''); if(m&&ENTITY_PROFILES[m[1]]) awal=m[1];
   if(!awal){ try{ const v=localStorage.getItem('cakEnt'); if(v&&ENTITY_PROFILES[v]) awal=v; }catch(e){} }
@@ -378,7 +401,7 @@ function init(){
   if(ENT==='PIG') tabAktif='grup';
   terapkanTampilan();
 }
-return {init, hook, tabBoleh, setEntitas, muatBerkas, STORE, KONTRAK, MODUL, get ent(){return ENT;},
+return {init, hook, tabBoleh, setEntitas, muatBerkas, STORE, KONTRAK, MODUL, get ent(){return ENT;}, paintModulAktif:()=>paintModul(tabAktif),
         _util:{isoDari,tglID,umurHari,fmt,fmt1,esc,kenaliEntitas}};
 })();
 window.CAK_TABOK = id => CAK.tabBoleh(id);

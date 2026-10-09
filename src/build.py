@@ -19,7 +19,7 @@ ACUAN = AKAR / 'ref' / 'Dashboard_CAK_PRI_v2beta_04Oktober2026.html'
 DUMMY = AKAR / 'data' / 'DUMMY_CAK_PRI_PIGroup_data.json'
 KELUAR = AKAR / 'Dashboard_CAK_PRI_PIGroup_v3.html'
 SRC = AKAR / 'src'
-JS_V3 = ['entity_profiles.js', 'cak_core.js']   # urutan penting
+JS_V3 = ['entity_profiles.js', 'cak_gas_model.js', 'cak_gas_ui1.js', 'cak_gas_ui2.js', 'cak_core.js']   # urutan penting
 
 
 def ganti(s, lama, baru, n=1):
@@ -63,7 +63,7 @@ def main():
   <div class="dummyribbon" id="dummyRibbon" role="note" hidden></div>
 </header>''')
     h = ganti(h, '<div class="alert" id="alert" role="status"></div>',
-              '<div class="alert pkgonly" id="alert" role="status"></div>')
+              '<div class="alert pkgonly" id="alert" role="status"></div>\n<div class="alert genonly" id="galert" role="status" style="display:none"></div>')
     h = ganti(h, '<footer id="foot"></footer>',
               '<footer id="foot" class="pkgonly"></footer>\n<footer id="gfoot" class="genonly"></footer>')
 

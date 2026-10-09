@@ -70,12 +70,32 @@ const PRESET_GAS = [
   {id:'stok',    label:'Hanya stok', matikanSemua:true}
 ];
 
+
+/* Koordinat geografis perkiraan pelabuhan muat (data publik), hanya untuk
+   menggambar peta. Rute laut memakai lintasan peta versi PKG (id rute v2beta)
+   yang kemudian disambung ke jalur masuk pelabuhan bongkar tiap entitas.
+   Jarak dan waktu layar yang ditampilkan tetap dibaca dari jadwal kapal. */
+const PELABUHAN_MUAT = {
+  'Vancouver':                  {lat:49.29, lon:-123.11, rute:'kcl-canada'},
+  'Klaipeda (Lituania)':        {lat:55.71, lon:21.13,   rute:'kcl-belarus'},
+  'Ust-Luga':                   {lat:59.68, lon:28.40,   rute:'kcl-rusia'},
+  'Fangchenggang':              {lat:21.60, lon:108.35,  rute:'dap-china'},
+  'Ras Al-Khair':               {lat:27.48, lon:49.27,   rute:'sul-me'},
+  'Jorf Lasfar':                {lat:33.12, lon:-8.63,   rute:'pr-maroc'},
+  'Aqaba':                      {lat:29.52, lon:35.00,   rute:'pr-jordan'},
+  'Pelabuhan Petrokimia Gresik':{domestik:true}
+};
+
+/* KRI produksi terhadap RKAP pro-rata — belum ada ambang resmi; USULAN. */
+const KRI_PRODUKSI_USULAN = {aman:95, bahaya:90, status:'usulan'};
+
 const ENTITY_PROFILES = {
   PIG:{
     kode:'PIG', label:'PI Group', nama:'PT Pupuk Indonesia (Persero)', lokasi:'Konsolidasi lima anak perusahaan produsen',
     aksen:'#009D3C', logo:null, engine:'konsolidasi',
     unitKerja:'Dept. Perencanaan & Pelaporan Manajemen Risiko',
     /* aturan konsolidasi: hanya besaran setara yang dijumlahkan */
+    kriProduksi:KRI_PRODUKSI_USULAN,
     aturanKonsolidasi:'Ton produk sejenis dan hari setara dijumlahkan. Persentase dan status tidak dijumlahkan: ditampilkan per entitas atau diambil yang terburuk.'
   },
   PKG:{
@@ -91,7 +111,9 @@ const ENTITY_PROFILES = {
   PKT:{
     kode:'PKT', nama:"PT Pupuk Kalimantan Timur", lokasi:"Bontang, Kalimantan Timur", aksen:'#F5A623', logo:null,
     engine:'gas', basis:'Gas alam',
-    pelabuhan:{nama:"Pelabuhan Khusus PKT Bontang", lat:0.1, lon:117.48},
+    pelabuhan:{nama:"Pelabuhan Khusus PKT Bontang", lat:0.1, lon:117.48,
+      pendekatan:[[[-5.6,114.6],[-3.6,116.9],[-1.0,117.9],[0.0,117.7]], [[2.5,119.5],[1.0,118.6],[0.2,117.8]]],
+      dariGresik:[[-6.6,112.7],[-5.6,114.6],[-3.6,116.9],[-1.0,117.9],[0.0,117.7]]},
     konteks:"Pasokan gas relatif stabil; perhatian utama pada keterlambatan kargo KCl dan turnaround satu pabrik amoniak.",
     npk:{nama:"NPK 15-15-15 (dummy)", sistem:null}, dosis:{urea:250, npk:300},
     bahanBaku:[
@@ -109,7 +131,9 @@ const ENTITY_PROFILES = {
   PIM:{
     kode:'PIM', nama:"PT Pupuk Iskandar Muda", lokasi:"Lhokseumawe, Aceh", aksen:'#2E86C1', logo:null,
     engine:'gas', basis:'Gas alam',
-    pelabuhan:{nama:"Pelabuhan Krueng Geukueh", lat:5.25, lon:97.03},
+    pelabuhan:{nama:"Pelabuhan Krueng Geukueh", lat:5.25, lon:97.03,
+      pendekatan:[[[6.2,94.6],[5.9,95.8],[5.5,96.6]], [[1.2,104.0],[2.0,102.0],[3.3,100.4],[4.6,98.4]]],
+      dariGresik:[[-6.6,112.7],[-4.5,109.8],[-1.5,108.6],[0.8,105.6],[1.2,104.0],[2.0,102.0],[3.3,100.4],[4.6,98.4]]},
     konteks:"Pasokan gas sedang dibatasi (curtailment) sejak akhir September; stok amoniak di tangki menjadi penyangga utama.",
     npk:{nama:"NPK 15-15-15 (dummy)", sistem:null}, dosis:{urea:250, npk:300},
     bahanBaku:[
@@ -127,7 +151,9 @@ const ENTITY_PROFILES = {
   PSP:{
     kode:'PSP', nama:"PT Pupuk Sriwidjaja Palembang", lokasi:"Palembang, Sumatera Selatan", aksen:'#C0392B', logo:null,
     engine:'gas', basis:'Gas alam',
-    pelabuhan:{nama:"Dermaga Pusri, Sungai Musi", lat:-2.98, lon:104.79},
+    pelabuhan:{nama:"Dermaga Pusri, Sungai Musi", lat:-2.98, lon:104.79,
+      pendekatan:[[[-3.0,106.6],[-2.3,105.9],[-2.2,105.2],[-2.35,104.9]], [[-0.5,106.2],[-1.6,105.6],[-2.2,105.2],[-2.35,104.9]]],
+      dariGresik:[[-6.6,112.7],[-5.6,110.0],[-4.3,107.5],[-3.0,106.6],[-2.3,105.9],[-2.2,105.2],[-2.35,104.9]]},
     konteks:"Pasokan gas cukup; risiko utama pada keandalan pabrik berumur dan alur Sungai Musi untuk kapal impor.",
     npk:{nama:"NPK 15-15-15 (dummy)", sistem:null}, dosis:{urea:250, npk:300},
     bahanBaku:[
@@ -145,7 +171,9 @@ const ENTITY_PROFILES = {
   PKC:{
     kode:'PKC', nama:"PT Pupuk Kujang", lokasi:"Cikampek, Jawa Barat", aksen:'#27AE60', logo:null,
     engine:'gas', basis:'Gas alam',
-    pelabuhan:{nama:"Pelabuhan Tanjung Priok (bongkar impor)", lat:-6.1, lon:106.88, darat:'Diangkut darat ke pabrik Cikampek; jarak dan waktu angkut darat [ISI]'},
+    pelabuhan:{nama:"Pelabuhan Tanjung Priok (bongkar impor)", lat:-6.1, lon:106.88,
+      pendekatan:[[[-5.6,107.0],[-5.95,106.9]]],
+      dariGresik:[[-6.6,112.7],[-5.7,110.0],[-5.6,107.0],[-5.95,106.9]], darat:'Diangkut darat ke pabrik Cikampek; jarak dan waktu angkut darat [ISI]'},
     konteks:"Pabrik di darat; impor KCl dan DAP dibongkar di Tanjung Priok lalu diangkut darat. Stok KCl di bawah ambang waspada.",
     npk:{nama:"NPK 15-15-15 (dummy)", sistem:null}, dosis:{urea:250, npk:300},
     bahanBaku:[
@@ -170,12 +198,13 @@ function rantaiGas(P){
   const add=(id,label,kol,jenis)=>N.push({id,label,kol,jenis});
   (P.gasKontrak||[]).forEach((g,i)=>{ add('src-gas-'+i, g.pemasok, 0, 'asal'); E.push(['src-gas-'+i,'GAS']); });
   add('GAS','Gas alam',1,'bahan'); add('NH3','Amoniak',1,'bahan');
+  if((P.unit||[]).some(u=>u.produk==='NPK')) add('UREA-INT','Urea internal',1,'bahan');
   ['KCL','DAP','ZA','CLAY'].forEach(k=>{ const b=(P.bahanBaku||[]).find(x=>x.k===k); if(b) add(k,b.nama,1,'bahan'); });
   (P.unit||[]).forEach(u=>{
     add('u-'+u.unit, u.unit, 2, 'unit');
     if(u.produk==='Amoniak'){ E.push(['GAS','u-'+u.unit]); E.push(['u-'+u.unit,'NH3']); }
     if(u.produk==='Urea'){ E.push(['NH3','u-'+u.unit]); E.push(['GAS','u-'+u.unit]); E.push(['u-'+u.unit,'P-Urea']); }
-    if(u.produk==='NPK'){ ['KCL','DAP','ZA','CLAY'].forEach(k=>E.push([k,'u-'+u.unit])); E.push(['P-Urea','u-'+u.unit]); E.push(['u-'+u.unit,'P-NPK']); }
+    if(u.produk==='NPK'){ ['KCL','DAP','ZA','CLAY'].forEach(k=>E.push([k,'u-'+u.unit])); E.push(['UREA-INT','u-'+u.unit]); E.push(['u-'+u.unit,'P-NPK']); }
   });
   add('P-Urea','Urea',3,'produk'); add('P-NPK',(P.npk&&P.npk.nama)||'NPK',3,'produk'); add('P-NH3','Amoniak niaga / transfer',3,'produk');
   E.push(['NH3','P-NH3']);

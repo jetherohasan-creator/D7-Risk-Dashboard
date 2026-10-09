@@ -34,3 +34,70 @@ body:not([data-ent="PKG"]) header{box-shadow:inset 0 3px 0 var(--acc)}
 .cakkosong{color:var(--ink2);font-size:13px;line-height:1.6}
 .cakkosong b{color:var(--ink)}
 @media(max-width:760px){.entbtns button{padding:7px 9px;font-size:11.5px}.entstat{font-size:11px}}
+/* ===== mesin generik entitas gas ===== */
+.gfoot-n{margin-top:18px;font-size:11.5px;color:var(--ink2);line-height:1.6}
+.dmytx{color:#B3261E;letter-spacing:.06em}
+html[data-theme=dark] .dmytx{color:#FF8A7A}
+.gindik{margin:14px 0 0;font-size:12px;color:var(--ink2);border-left:3px solid var(--steel);padding:6px 10px;background:var(--panel2)}
+.gbelum{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink3);border:1px dashed var(--line2);border-radius:3px;padding:3px 7px}
+.gsub{font-size:11.5px;color:var(--ink3);line-height:1.55}
+.gtxt{text-align:left!important;font-family:var(--body)!important;font-size:11.5px!important;color:var(--ink2);white-space:normal}
+.gdim{color:var(--ink2)}
+.tbl td.gtblnote{text-align:left;font-family:var(--body);font-size:11.5px;color:var(--ink2);border:none;padding-top:14px;line-height:1.7;white-space:normal}
+.tbl tr.gsubtot td{font-weight:700;border-top:1px solid var(--line2)}
+.gjad,.gunit{padding:9px 0;border-bottom:1px solid var(--line)}
+.gjad{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink2)}
+.gjv{font-family:var(--mono);font-size:13px;text-align:right;white-space:nowrap}
+.gunit b{font-size:13px;margin-left:8px}
+.glv{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}
+.glab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.gbar{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.gbn{width:170px;font-size:12px;color:var(--ink2);flex:none}
+.gbv{font-family:var(--mono);font-size:12px;min-width:74px;text-align:right}
+.gbv small{color:var(--ink3);font-size:10px}
+.gsparks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:6px}
+.gspk{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:12px;color:var(--ink2)}
+.gspk span:last-child{font-family:var(--mono);font-size:13px}
+.gspd{font-family:var(--mono);font-size:10px;color:var(--ink3);display:flex;justify-content:space-between}
+.gchart{position:relative}
+.gtoolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.gfilter{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 12px}
+.tglbtn.on{border-color:var(--pkg2);color:var(--pkg2);font-weight:600;background:var(--panel2)}
+.gcards-s{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.gcards-s .card .big{font-size:26px}
+.gsrcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px}
+.gsrc{display:flex;align-items:center;gap:9px;text-align:left;padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--ink3);cursor:pointer;font-family:var(--body);font-size:12.5px}
+.gsrc i{width:12px;height:12px;border-radius:3px;flex:none}
+.gsrc small{display:block;font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.gsrc.on{color:var(--ink);border-color:var(--line2)}
+.gsrc:not(.on) span{text-decoration:line-through}
+.gsel{width:100%;padding:6px 8px;border:1px solid var(--line2);border-radius:5px;background:var(--panel);color:var(--ink);font-family:var(--body);font-size:12.5px;margin-top:4px}
+.gcek{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--ink2);margin-top:10px;cursor:pointer}
+.gnum{width:110px;padding:5px 8px;border:1px solid var(--line2);border-radius:5px;background:var(--panel);color:var(--ink);font-family:var(--mono);margin:0 6px}
+.gkrs{margin-top:12px}
+.gkr{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.gkr .dot{width:11px;height:11px;border-radius:3px;flex:none}
+.gkr .nm{flex:1;font-size:13px;font-weight:600}
+.gkr .nm small,.gkr .kg small{display:block;font-weight:400;font-family:var(--mono);font-size:10.5px;color:var(--ink3)}
+.gkr .kg{font-family:var(--mono);font-size:14px;text-align:right}
+.gtree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:8px}
+.gcol{display:flex;flex-direction:column;gap:8px}
+.gnode{border:1px solid var(--line);border-left:4px solid var(--t);border-radius:4px;padding:8px 10px;background:var(--panel)}
+.gnode b{display:block;font-size:12.5px}
+.gnode span{font-family:var(--mono);font-size:13px;color:var(--ink)}
+.gnode small{display:block;font-size:10.5px;color:var(--ink3);margin-top:2px}
+.gnpk{border-width:2px}
+.gik .gikn:hover rect:first-child{stroke-width:2}
+.tw.gaktif{outline:2px solid currentColor;outline-offset:4px;border-radius:2px}
+.gkena{margin-top:8px;font-size:12px;color:var(--ink);line-height:1.6}
+.gstatus{margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--ink2)}
+.gringkas .acts li{margin-bottom:8px}
+.gdmyline{background:#B3261E;color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 10px;border-radius:3px;margin-bottom:12px}
+.gurai{padding:12px 0;border-bottom:1px solid var(--line)}
+.gstack{display:flex;height:14px;border-radius:3px;overflow:hidden;margin:8px 0 6px}
+.gstack i{display:block;height:100%}
+.verdict small{display:block;margin-top:6px}
+@media(max-width:760px){.gtree{grid-template-columns:1fr}.gbn{width:110px}.gjad{flex-direction:column}.gjv{text-align:left}}
+.fwrap svg.gik{min-width:980px}
+.pstep .val .gbelum{white-space:normal;font-size:10.5px;font-weight:400;text-align:left}
+@media(max-width:760px){.pstep .val{white-space:normal}}
