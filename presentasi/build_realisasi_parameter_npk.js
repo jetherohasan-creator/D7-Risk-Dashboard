@@ -27,7 +27,7 @@ async function icon(Comp, color, size = 256) {
   return svgPng(svg, size);
 }
 
-// Banner: navy gradient + stylised snowy mountain on the right
+// Banner: navy gradient
 function bannerSvg(w, h, peakX, scale) {
   const k = 4; const W = w * k, H = h * k;
   const px = peakX * k, sc = scale * k;
@@ -36,23 +36,12 @@ function bannerSvg(w, h, peakX, scale) {
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#0E2A5A"/><stop offset="0.55" stop-color="#143A75"/>
-      <stop offset="0.8" stop-color="#3D6EAE"/><stop offset="1" stop-color="#C9DCF0"/>
-    </linearGradient>
-    <linearGradient id="mt" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3B5F93"/><stop offset="1" stop-color="#1A3A6C"/>
-    </linearGradient>
-    <linearGradient id="haze" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#2F62A8"/>
     </linearGradient>
     <clipPath id="c"><rect width="${W}" height="${H}" rx="${6 * k}"/></clipPath>
   </defs>
   <g clip-path="url(#c)">
     <rect width="${W}" height="${H}" fill="url(#g)"/>
-    <polygon fill="url(#mt)" points="${pt(-260, 90)} ${pt(-150, 55)} ${pt(-80, 30)} ${pt(-30, 12)} ${pt(0, 2)} ${pt(25, 14)} ${pt(60, 22)} ${pt(110, 45)} ${pt(170, 60)} ${pt(240, 90)}"/>
-    <polygon fill="#F4F8FC" points="${pt(-80, 30)} ${pt(-30, 12)} ${pt(0, 2)} ${pt(25, 14)} ${pt(60, 22)} ${pt(40, 30)} ${pt(22, 24)} ${pt(5, 36)} ${pt(-12, 22)} ${pt(-40, 34)} ${pt(-58, 30)}"/>
-    <polygon fill="#DCE7F3" points="${pt(25, 14)} ${pt(60, 22)} ${pt(110, 45)} ${pt(80, 40)} ${pt(55, 30)} ${pt(40, 30)}"/>
-    <polygon fill="#2C4E80" opacity="0.8" points="${pt(-150, 55)} ${pt(-110, 48)} ${pt(-60, 62)} ${pt(-20, 50)} ${pt(30, 70)} ${pt(80, 55)} ${pt(150, 75)} ${pt(240, 90)} ${pt(-260, 90)}"/>
-    <rect x="0" y="${H * 0.55}" width="${W}" height="${H * 0.45}" fill="url(#haze)" opacity="0.7"/>
   </g></svg>`;
 }
 
